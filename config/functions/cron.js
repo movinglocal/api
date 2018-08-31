@@ -9,7 +9,7 @@
  */
 
 module.exports = {
-  '* * * * *': async () => {
+  '5 * * * *': async () => {
     const sources = await strapi.services.source.getData();
   }
 };
