@@ -15,13 +15,17 @@
       "type": "string",
       "required": true
     },
-    "coord": {
-      "default": "",
-      "type": "json"
-    },
     "sources": {
       "collection": "source",
       "via": "location"
+    },
+    "lat": {
+      "default": "",
+      "type": "float"
+    },
+    "lng": {
+      "default": "",
+      "type": "float"
     }
   }
 }
