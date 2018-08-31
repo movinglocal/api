@@ -19,13 +19,9 @@
       "collection": "source",
       "via": "location"
     },
-    "lat": {
+    "latlng": {
       "default": "",
-      "type": "float"
-    },
-    "lng": {
-      "default": "",
-      "type": "float"
+      "type": "json"
     }
   }
 }
