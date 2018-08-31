@@ -9,13 +9,7 @@
  */
 
 module.exports = {
-
-  /**
-   * Simple example.
-   * Every monday at 1am.
-   */
-
-  // '0 1 * * 1': () => {
-  //
-  // }
+  '* * * * *': async () => {
+    const sources = await strapi.services.source.getData();
+  }
 };

@@ -1,0 +1,42 @@
+{
+  "connection": "default",
+  "collectionName": "article",
+  "info": {
+    "name": "article",
+    "description": "Articles imported from external sources or written directly in the CMS"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "default": "",
+      "unique": true,
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "default": "",
+      "type": "text",
+      "required": true
+    },
+    "users": {
+      "collection": "user",
+      "via": "articles",
+      "dominant": true,
+      "plugin": "users-permissions"
+    },
+    "ignored": {
+      "default": false,
+      "type": "boolean"
+    },
+    "date": {
+      "default": "o",
+      "type": "date"
+    },
+    "link": {
+      "default": "",
+      "type": "string"
+    }
+  }
+}
