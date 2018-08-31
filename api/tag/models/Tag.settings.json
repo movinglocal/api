@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "tag",
+  "info": {
+    "name": "tag",
+    "description": "Tags for your articles"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "unique": true,
+      "type": "string",
+      "required": true
+    },
+    "articles": {
+      "collection": "article",
+      "via": "tags",
+      "dominant": true
+    }
+  }
+}

@@ -29,6 +29,14 @@
         "RSS",
         "JSON"
       ]
+    },
+    "articles": {
+      "collection": "article",
+      "via": "source"
+    },
+    "location": {
+      "model": "location",
+      "via": "sources"
     }
   }
 }

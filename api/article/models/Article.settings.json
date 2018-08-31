@@ -37,6 +37,14 @@
     "link": {
       "default": "",
       "type": "string"
+    },
+    "source": {
+      "model": "source",
+      "via": "articles"
+    },
+    "tags": {
+      "collection": "tag",
+      "via": "articles"
     }
   }
 }

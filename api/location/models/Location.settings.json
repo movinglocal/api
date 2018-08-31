@@ -1,0 +1,27 @@
+{
+  "connection": "default",
+  "collectionName": "location",
+  "info": {
+    "name": "location",
+    "description": "The geographic location"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "unique": true,
+      "type": "string",
+      "required": true
+    },
+    "coord": {
+      "default": "",
+      "type": "json"
+    },
+    "sources": {
+      "collection": "source",
+      "via": "location"
+    }
+  }
+}
