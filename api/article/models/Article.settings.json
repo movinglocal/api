@@ -31,7 +31,7 @@
       "type": "boolean"
     },
     "date": {
-      "default": "o",
+      "default": "",
       "type": "date"
     },
     "link": {
