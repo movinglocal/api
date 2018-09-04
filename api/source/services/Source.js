@@ -1,4 +1,6 @@
 'use strict';
+const Parser = require('rss-parser');
+const parser = new Parser({customFields: {item: ['summary', 'content']}});
 
 /**
  * Source.js service
@@ -199,22 +201,27 @@ module.exports = {
   getData: async () => {
     const all = await strapi.services.source.fetchAll({});
     for (const source of all) {
-      const { _id, name, url, type } = source;
+      const { _id, url, type } = source;
       let feed;
       if (type === 'RSS')
         feed = await parser.parseURL(url);
 
       for (const item of feed.items) {
-        const { content, title, pubDate, link } = item;
+        const { content, summary, title, pubDate, link } = item;
         const count = await strapi.services.article.count({title});
         if (count === 0) {
-          const article = await strapi.services.article.add({
-            source: _id,
-            date: pubDate,
-            title,
-            content,
-            link
-          });
+          try {
+            const article = {
+              source: _id,
+              date: pubDate,
+              title,
+              content: content || summary,
+              link
+            };
+            await strapi.services.article.add(article);
+          } catch (err) {
+            console.error(`Unable to save article from source ${url}:`, err);
+          }
         }
       }
 
