@@ -10,6 +10,6 @@
 
 module.exports = {
   '*/5 * * * *': async () => {
-    const sources = await strapi.services.source.getData();
+    await strapi.services.source.getData();
   }
 };
