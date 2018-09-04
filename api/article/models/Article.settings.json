@@ -45,6 +45,15 @@
     "tags": {
       "collection": "tag",
       "via": "articles"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "image_url": {
+      "default": "",
+      "type": "string"
     }
   }
 }

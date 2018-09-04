@@ -1,4 +1,5 @@
 'use strict';
+const HTMLParser = require('fast-html-parser');
 const Parser = require('rss-parser');
 const parser = new Parser({customFields: {item: ['summary', 'content']}});
 
@@ -210,12 +211,20 @@ module.exports = {
         const { content, summary, title, pubDate, link } = item;
         const count = await strapi.services.article.count({title});
         if (count === 0) {
+          const body = `<html>${content || summary}</html>`;
+          const html = HTMLParser.parse(body);
+
+          const text = html.structuredText;
+          const image = html.querySelector('img');
+          const image_url = image && image.attributes.src;
+
           try {
             const article = {
               source: _id,
               date: pubDate,
               title,
-              content: content || summary,
+              content: text,
+              image_url,
               link
             };
             await strapi.services.article.add(article);
