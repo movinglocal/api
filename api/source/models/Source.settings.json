@@ -32,7 +32,8 @@
     },
     "articles": {
       "collection": "article",
-      "via": "source"
+      "via": "source",
+      "autoPopulate": false
     },
     "location": {
       "model": "location",
