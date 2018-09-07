@@ -20,6 +20,11 @@ module.exports = {
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Mongo.
     const filters = strapi.utils.models.convertParams('article', params);
+
+    // implement MongoDB $nin filter
+    const sources = filters.where.source['$ne'];
+    if (sources.length > 1) filters.where.source = { '$nin': sources };
+
     // Select field to populate.
     const populate = Article.associations
       .filter(ast => ast.autoPopulate !== false)
