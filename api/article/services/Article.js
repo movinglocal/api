@@ -22,8 +22,11 @@ module.exports = {
     const filters = strapi.utils.models.convertParams('article', params);
 
     // implement MongoDB $nin filter
-    const sources = filters.where.source['$ne'];
-    if (sources.length > 1) filters.where.source = { '$nin': sources };
+    if (filters.where.source) {
+      if (filters.where.source['$ne'].length > 1) {
+        filters.where.source = { '$nin': filters.where.source['$ne'] };
+      }
+    }
 
     // Select field to populate.
     const populate = Article.associations
