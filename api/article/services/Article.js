@@ -9,6 +9,16 @@
 // Public dependencies.
 const _ = require('lodash');
 
+// implement MongoDB $nin filter
+function notInFilter(filters) {
+  if (filters.where.source) {
+    if (filters.where.source['$ne'].length > 1) {
+      filters.where.source = { '$nin': filters.where.source['$ne'] };
+    }
+  }
+  return filters;
+}
+
 module.exports = {
 
   /**
@@ -19,14 +29,8 @@ module.exports = {
 
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('article', params);
-
-    // implement MongoDB $nin filter
-    if (filters.where.source) {
-      if (filters.where.source['$ne'].length > 1) {
-        filters.where.source = { '$nin': filters.where.source['$ne'] };
-      }
-    }
+    let filters = strapi.utils.models.convertParams('article', params);
+    filters = notInFilter(filters);
 
     // Select field to populate.
     const populate = Article.associations
@@ -69,7 +73,8 @@ module.exports = {
 
   count: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('article', params);
+    let filters = strapi.utils.models.convertParams('article', params);
+    filters = notInFilter(filters);
 
     return Article
       .count()
