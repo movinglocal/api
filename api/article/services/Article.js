@@ -76,6 +76,14 @@ module.exports = {
     let filters = strapi.utils.models.convertParams('article', params);
     filters = notInFilter(filters);
 
+    // convert search query to $or filter
+    if (filters.where._q) filters.where = {
+      $or: [
+        { title: { $regex: filters.where._q, $options: 'i'}},
+        { content: { $regex: filters.where._q, $options: 'i'}}
+      ]
+    };
+
     return Article
       .count()
       .where(filters.where);
