@@ -96,6 +96,8 @@ module.exports = {
    */
 
   add: async (values) => {
+    if (typeof values === 'string') values = JSON.parse(values);
+
     // Extract values related to relational data.
     const relations = _.pick(values, Article.associations.map(ast => ast.alias));
     const data = _.omit(values, Article.associations.map(ast => ast.alias));
@@ -114,6 +116,8 @@ module.exports = {
    */
 
   edit: async (params, values) => {
+    if (typeof values === 'string') values = JSON.parse(values);
+
     // Extract values related to relational data.
     const relations = _.pick(values, Article.associations.map(a => a.alias));
     const data = _.omit(values, Article.associations.map(a => a.alias));
