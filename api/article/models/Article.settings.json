@@ -15,10 +15,14 @@
       "type": "string",
       "required": true
     },
-    "content": {
+    "teaser": {
       "default": "",
       "type": "text",
       "required": true
+    },
+    "content": {
+      "default": "",
+      "type": "text"
     },
     "users": {
       "collection": "user",

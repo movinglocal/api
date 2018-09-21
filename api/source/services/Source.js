@@ -223,7 +223,7 @@ module.exports = {
               source: _id,
               date: pubDate,
               title,
-              content: text,
+              teaser: text,
               image_url,
               link
             };
