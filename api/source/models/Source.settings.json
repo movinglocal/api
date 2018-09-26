@@ -37,6 +37,10 @@
     "location": {
       "model": "location",
       "via": "sources"
+    },
+    "filter": {
+      "default": "",
+      "type": "string"
     }
   }
 }

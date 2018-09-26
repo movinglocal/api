@@ -202,7 +202,7 @@ module.exports = {
   getData: async () => {
     const all = await strapi.services.source.fetchAll({});
     for (const source of all) {
-      const { _id, url, type } = source;
+      const { _id, url, type, filter } = source;
       let feed;
       if (type === 'RSS')
         feed = await parser.parseURL(url);
@@ -218,18 +218,26 @@ module.exports = {
           const image = html.querySelector('img');
           const image_url = image && image.attributes.src;
 
+          const article = {
+            source: _id,
+            date: pubDate,
+            title,
+            teaser: text,
+            image_url,
+            link
+          };
+
           try {
-            const article = {
-              source: _id,
-              date: pubDate,
-              title,
-              teaser: text,
-              image_url,
-              link
-            };
-            await strapi.services.article.add(article);
+            if (filter) {
+              const filterTerm = filter.toLowerCase();
+              if (article.title.toLowerCase().includes(filterTerm) || article.teaser.toLowerCase().includes(filterTerm)) {
+                await strapi.services.article.add(article);
+              }
+            } else {
+              await strapi.services.article.add(article);
+            }
           } catch (err) {
-            console.error(`Unable to save article from source ${url}:`, err);
+            if (err.code === 11000) await strapi.services.article.edit({link}, article);
           }
         }
       }
