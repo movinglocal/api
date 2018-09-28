@@ -24,11 +24,6 @@
       "configurable": false,
       "private": true
     },
-    "resetPasswordToken": {
-      "type": "string",
-      "configurable": false,
-      " ": true
-    },
     "confirmed": {
       "type": "boolean",
       "default": false,
@@ -45,9 +40,19 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "articles": {
-      "collection": "article",
+    "image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "description": {
+      "default": "",
+      "type": "text"
+    },
+    "source": {
+      "model": "source",
       "via": "users"
     }
-  }
+  },
+  "collectionName": "users-permissions_user"
 }

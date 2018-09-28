@@ -201,8 +201,9 @@ module.exports = {
    */
   getData: async () => {
     const all = await strapi.services.source.fetchAll({});
-    for (const source of all) {
-      const { _id, url, type, filter } = source;
+    const sources = all.filter(source => source.type !== 'local');
+    for (const source of sources) {
+      const { _id, url, type, filter, category } = source;
       let feed;
       if (type === 'RSS')
         feed = await parser.parseURL(url);
@@ -224,7 +225,8 @@ module.exports = {
             title,
             teaser: text,
             image_url,
-            link
+            link,
+            type: category
           };
 
           try {

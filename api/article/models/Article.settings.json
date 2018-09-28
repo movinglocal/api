@@ -23,12 +23,6 @@
       "default": "",
       "type": "text"
     },
-    "users": {
-      "collection": "user",
-      "via": "articles",
-      "dominant": true,
-      "plugin": "users-permissions"
-    },
     "ignored": {
       "default": false,
       "type": "boolean"
@@ -57,6 +51,18 @@
     "image_url": {
       "default": "",
       "type": "string"
+    },
+    "type": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "journalismus",
+        "kollektive"
+      ]
+    },
+    "force": {
+      "default": false,
+      "type": "boolean"
     }
   }
 }

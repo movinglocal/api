@@ -16,16 +16,14 @@
       "required": true
     },
     "url": {
-      "default": "",
       "unique": true,
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "type": {
-      "default": "",
+      "default": "local",
       "type": "enumeration",
-      "required": true,
       "enum": [
+        "local",
         "RSS",
         "JSON"
       ]
@@ -41,6 +39,20 @@
     "filter": {
       "default": "",
       "type": "string"
+    },
+    "category": {
+      "default": "journalismus",
+      "type": "enumeration",
+      "enum": [
+        "journalismus",
+        "kollektive"
+      ]
+    },
+    "users": {
+      "collection": "user",
+      "dominant": true,
+      "via": "source",
+      "plugin": "users-permissions"
     }
   }
 }
