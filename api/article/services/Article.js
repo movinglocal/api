@@ -12,7 +12,7 @@ const _ = require('lodash');
 // implement MongoDB $nin filter
 function notInFilter(filters) {
   if (filters.where.source) {
-    if (filters.where.source['$ne'].length > 1) {
+    if (filters.where.source['$ne'] && filters.where.source['$ne'].length > 1) {
       filters.where.source = { '$nin': filters.where.source['$ne'] };
     }
   }
