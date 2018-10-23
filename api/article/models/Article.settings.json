@@ -65,7 +65,7 @@
       "type": "boolean"
     },
     "status": {
-      "default": "",
+      "default": "in progress",
       "type": "enumeration",
       "enum": [
         "in progress",
