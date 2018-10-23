@@ -38,7 +38,8 @@
     },
     "sources": {
       "collection": "source",
-      "via": "organisation"
+      "via": "organisation",
+      "dominant": true
     }
   }
 }

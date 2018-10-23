@@ -30,7 +30,8 @@
     },
     "articles": {
       "collection": "article",
-      "via": "source"
+      "via": "source",
+      "autoPopulate": false
     },
     "filter": {
       "default": "",
@@ -45,7 +46,9 @@
       ]
     },
     "organisation": {
-      "model": "organisation"
+      "collection": "organisation",
+      "via": "sources",
+      "autoPopulate": true
     }
   }
 }
