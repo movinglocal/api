@@ -209,8 +209,8 @@ module.exports = {
         feed = await parser.parseURL(url);
 
       for (const item of feed.items) {
-        const { content, summary, title, pubDate, link } = item;
-        const count = await strapi.services.article.count({title});
+        const { content, summary, title, pubDate, link, guid } = item;
+        const count = await strapi.services.article.count({guid});
         if (count === 0) {
           const body = `<html>${content || summary}</html>`;
           const html = HTMLParser.parse(body);
@@ -226,6 +226,7 @@ module.exports = {
             teaser: text,
             image_url,
             link,
+            guid,
             type: category
           };
 

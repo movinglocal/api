@@ -32,7 +32,6 @@
       "type": "date"
     },
     "link": {
-      "unique": true,
       "type": "string"
     },
     "source": {
@@ -71,6 +70,11 @@
         "in progress",
         "reviewed"
       ]
+    },
+    "guid": {
+      "default": "",
+      "unique": true,
+      "type": "string"
     }
   }
 }
