@@ -72,7 +72,6 @@
       ]
     },
     "guid": {
-      "default": "",
       "unique": true,
       "type": "string"
     }
