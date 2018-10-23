@@ -63,6 +63,14 @@
     "isHot": {
       "default": false,
       "type": "boolean"
+    },
+    "status": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "in progress",
+        "reviewed"
+      ]
     }
   }
 }
