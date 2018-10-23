@@ -23,7 +23,7 @@
       "default": "",
       "type": "text"
     },
-    "ignored": {
+    "isVisible": {
       "default": false,
       "type": "boolean"
     },
@@ -60,7 +60,7 @@
         "kollektive"
       ]
     },
-    "force": {
+    "isHot": {
       "default": false,
       "type": "boolean"
     }
