@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "topic",
+    "description": "A topic includes multiple tags"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "unique": true,
+      "type": "string",
+      "required": true
+    },
+    "tags": {
+      "collection": "tag",
+      "via": "topics",
+      "dominant": true
+    }
+  }
+}
