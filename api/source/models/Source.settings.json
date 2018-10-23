@@ -46,8 +46,7 @@
       ]
     },
     "organisation": {
-      "collection": "organisation",
-      "via": "sources",
+      "model": "organisation",
       "autoPopulate": true
     }
   }
