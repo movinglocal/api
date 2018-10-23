@@ -1,0 +1,44 @@
+{
+  "connection": "default",
+  "collectionName": "organisation",
+  "info": {
+    "name": "organisation",
+    "description": "An organisation has multiple sources and users"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "unique": true,
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "default": "",
+      "type": "text"
+    },
+    "address": {
+      "default": "",
+      "type": "string"
+    },
+    "isPremium": {
+      "default": false,
+      "type": "boolean"
+    },
+    "location": {
+      "model": "location"
+    },
+    "users": {
+      "collection": "user",
+      "dominant": true,
+      "via": "organisation",
+      "plugin": "users-permissions"
+    },
+    "sources": {
+      "collection": "source",
+      "via": "organisation"
+    }
+  }
+}

@@ -32,10 +32,6 @@
       "collection": "article",
       "via": "source"
     },
-    "location": {
-      "model": "location",
-      "via": "sources"
-    },
     "filter": {
       "default": "",
       "type": "string"
@@ -48,11 +44,8 @@
         "kollektive"
       ]
     },
-    "users": {
-      "collection": "user",
-      "dominant": true,
-      "via": "source",
-      "plugin": "users-permissions"
+    "organisation": {
+      "model": "organisation"
     }
   }
 }

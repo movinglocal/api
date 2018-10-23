@@ -49,8 +49,8 @@
       "default": "",
       "type": "text"
     },
-    "source": {
-      "model": "source",
+    "organisation": {
+      "model": "organisation",
       "via": "users"
     }
   },
