@@ -32,13 +32,19 @@
     },
     "users": {
       "collection": "user",
-      "dominant": true,
       "via": "organisation",
+      "dominant": true,
       "plugin": "users-permissions"
     },
     "sources": {
       "collection": "source",
       "via": "organisation"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
     }
   }
 }
