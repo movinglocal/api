@@ -226,18 +226,17 @@ module.exports = {
             teaser: text,
             image_url,
             link,
-            guid,
-            type: category
+            guid
           };
 
           try {
             if (filter) {
               const filterTerm = filter.toLowerCase();
               if (article.title.toLowerCase().includes(filterTerm) || article.teaser.toLowerCase().includes(filterTerm)) {
-                await strapi.services.article.add(article);
+                addArticle(article);
               }
             } else {
-              await strapi.services.article.add(article);
+              addArticle(article);
             }
           } catch (err) {
             if (err.code === 11000) await strapi.services.article.edit({link}, article);
@@ -248,3 +247,12 @@ module.exports = {
     }
   }
 };
+
+const addArticle = async (article) => {
+  try {
+    await strapi.services.article.add(article);
+  } catch (err) {
+    console.log(err);
+  }
+
+}
