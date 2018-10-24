@@ -40,7 +40,8 @@
     },
     "tags": {
       "collection": "tag",
-      "via": "articles"
+      "via": "articles",
+      "dominant": true
     },
     "image": {
       "model": "file",

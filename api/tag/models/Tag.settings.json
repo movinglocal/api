@@ -17,7 +17,6 @@
     },
     "articles": {
       "collection": "article",
-      "dominant": true,
       "via": "tags"
     },
     "topics": {
