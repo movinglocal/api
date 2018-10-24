@@ -1,8 +1,8 @@
 {
   "_from": "strapi-plugin-settings-manager@alpha",
-  "_id": "strapi-plugin-settings-manager@3.0.0-alpha.14",
+  "_id": "strapi-plugin-settings-manager@3.0.0-alpha.14.3",
   "_inBundle": false,
-  "_integrity": "sha512-VoGrTYT+TMkUdjpW6ZRBQtQD8IPkMYPQoE7Y20+25yBwKAqJAUyKs65gokCLCVMr9zm0+VjInMVHFjw3XtZu1w==",
+  "_integrity": "sha512-+/6dO97loLFk/Zl9iumx5Z3+xfrsAIVHqBQsDtwuUa+lnvxU+Mw5h0EJNJvVPi/U0O6+4wCvVpMu5qAxQbCcVQ==",
   "_location": "/strapi-plugin-settings-manager",
   "_phantomChildren": {},
   "_requested": {
@@ -18,10 +18,10 @@
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "https://registry.npmjs.org/strapi-plugin-settings-manager/-/strapi-plugin-settings-manager-3.0.0-alpha.14.tgz",
-  "_shasum": "acb83079796a229c32c791fbd8c63516cdfc5aec",
+  "_resolved": "https://registry.npmjs.org/strapi-plugin-settings-manager/-/strapi-plugin-settings-manager-3.0.0-alpha.14.3.tgz",
+  "_shasum": "08a0f81b99e93300dedc49beea1a0bc241b4cce8",
   "_spec": "strapi-plugin-settings-manager@alpha",
-  "_where": "/home/g-div/Code/wbkd/movinglocal/api",
+  "_where": "/tmp/myNewProject",
   "author": {
     "name": "Strapi team",
     "email": "hi@strapi.io",
@@ -36,7 +36,7 @@
   "devDependencies": {
     "flag-icon-css": "^2.8.0",
     "react-select": "^1.0.0-rc.5",
-    "strapi-helper-plugin": "3.0.0-alpha.14"
+    "strapi-helper-plugin": "3.0.0-alpha.14.3"
   },
   "engines": {
     "node": ">= 9.0.0",
@@ -76,5 +76,5 @@
     "icon": "wrench",
     "description": "settings-manager.plugin.description"
   },
-  "version": "3.0.0-alpha.14"
+  "version": "3.0.0-alpha.14.3"
 }

@@ -24,6 +24,11 @@
       "configurable": false,
       "private": true
     },
+    "resetPasswordToken": {
+      "type": "string",
+      "configurable": false,
+      "private": true
+    },
     "confirmed": {
       "type": "boolean",
       "default": false,
@@ -53,6 +58,5 @@
       "model": "organisation",
       "via": "users"
     }
-  },
-  "collectionName": "users-permissions_user"
+  }
 }
