@@ -45,18 +45,19 @@
     "image": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
     },
     "image_url": {
       "default": "",
       "type": "string"
     },
     "type": {
-      "default": "",
+      "default": "news",
       "type": "enumeration",
       "enum": [
-        "journalismus",
-        "kollektive"
+        "news",
+        "event"
       ]
     },
     "isHot": {
