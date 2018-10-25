@@ -19,7 +19,9 @@
     "eslint-plugin-react": "^6.8.0"
   },
   "dependencies": {
+    "dotenv": "^6.1.0",
     "fast-html-parser": "^1.0.1",
+    "got": "^9.2.2",
     "lodash": "^4.17.5",
     "rss-parser": "^3.4.3",
     "strapi": "^3.0.0-alpha.14.2",

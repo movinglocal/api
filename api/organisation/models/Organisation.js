@@ -1,5 +1,7 @@
 'use strict';
 
+const geocode = require('../../../utils/geocode');
+
 /**
  * Lifecycle callbacks for the `Organisation` model.
  */
@@ -30,7 +32,13 @@ module.exports = {
 
   // Before creating a value.
   // Fired before an `insert` query.
-  // beforeCreate: async (model) => {},
+  beforeCreate: async (model) => {
+    if (model.address) {
+      const { lat, lng } = await geocode(model.address);
+      model.lat = lat;
+      model.lng = lng;
+    }
+  },
 
   // After creating a value.
   // Fired after an `insert` query.
@@ -38,7 +46,13 @@ module.exports = {
 
   // Before updating a value.
   // Fired before an `update` query.
-  // beforeUpdate: async (model) => {},
+  beforeUpdate: async (model) => {
+    if (model._update.address) {
+      const { lat, lng } = await geocode(model._update.address);
+      model._update.lat = lat;
+      model._update.lng = lng;
+    }
+  },
 
   // After updating a value.
   // Fired after an `update` query.

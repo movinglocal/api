@@ -20,15 +20,11 @@
       "type": "text"
     },
     "address": {
-      "default": "",
       "type": "string"
     },
     "isPremium": {
       "default": false,
       "type": "boolean"
-    },
-    "location": {
-      "model": "location"
     },
     "users": {
       "collection": "user",
@@ -45,6 +41,12 @@
       "via": "related",
       "plugin": "upload",
       "required": false
+    },
+    "lat": {
+      "type": "float"
+    },
+    "lng": {
+      "type": "float"
     }
   }
 }

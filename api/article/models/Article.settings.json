@@ -77,6 +77,15 @@
     "guid": {
       "unique": true,
       "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "lat": {
+      "type": "float"
+    },
+    "lng": {
+      "type": "float"
     }
   }
 }
