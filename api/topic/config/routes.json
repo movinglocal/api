@@ -2,7 +2,7 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/topic",
+      "path": "/topics",
       "handler": "Topic.find",
       "config": {
         "policies": []
@@ -10,7 +10,7 @@
     },
     {
       "method": "GET",
-      "path": "/topic/count",
+      "path": "/topics/count",
       "handler": "Topic.count",
       "config": {
         "policies": []
@@ -18,7 +18,7 @@
     },
     {
       "method": "GET",
-      "path": "/topic/:_id",
+      "path": "/topics/:_id",
       "handler": "Topic.findOne",
       "config": {
         "policies": []
@@ -26,7 +26,7 @@
     },
     {
       "method": "POST",
-      "path": "/topic",
+      "path": "/topics",
       "handler": "Topic.create",
       "config": {
         "policies": []
@@ -34,7 +34,7 @@
     },
     {
       "method": "PUT",
-      "path": "/topic/:_id",
+      "path": "/topics/:_id",
       "handler": "Topic.update",
       "config": {
         "policies": []
@@ -42,7 +42,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/topic/:_id",
+      "path": "/topics/:_id",
       "handler": "Topic.destroy",
       "config": {
         "policies": []
