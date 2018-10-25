@@ -22,6 +22,11 @@
     "topics": {
       "collection": "topic",
       "via": "tags"
+    },
+    "subscribed": {
+      "collection": "user",
+      "via": "subscribes",
+      "plugin": "users-permissions"
     }
   }
 }

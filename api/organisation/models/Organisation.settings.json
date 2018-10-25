@@ -47,6 +47,11 @@
     },
     "lng": {
       "type": "float"
+    },
+    "followers": {
+      "collection": "user",
+      "via": "follows",
+      "plugin": "users-permissions"
     }
   }
 }
