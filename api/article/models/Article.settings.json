@@ -86,6 +86,10 @@
     },
     "lng": {
       "type": "float"
+    },
+    "favorites": {
+      "collection": "appuser",
+      "via": "favorites"
     }
   }
 }

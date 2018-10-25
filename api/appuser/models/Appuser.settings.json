@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "appuser",
   "info": {
     "name": "appuser",
     "description": ""
@@ -23,6 +23,11 @@
     "tags": {
       "collection": "tag",
       "via": "appusers",
+      "dominant": true
+    },
+    "favorites": {
+      "collection": "article",
+      "via": "favorites",
       "dominant": true
     }
   }
