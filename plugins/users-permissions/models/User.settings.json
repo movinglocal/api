@@ -48,8 +48,7 @@
     "image": {
       "model": "file",
       "via": "related",
-      "plugin": "upload",
-      "required": false
+      "plugin": "upload"
     },
     "description": {
       "default": "",
@@ -58,22 +57,6 @@
     "organisation": {
       "model": "organisation",
       "via": "users"
-    },
-    "follows": {
-      "collection": "organisation",
-      "via": "followers",
-      "dominant": true
-    },
-    "subscribes": {
-      "collection": "tag",
-      "via": "subscribed"
-    },
-    "lat": {
-      "type": "float"
-    },
-    "lng": {
-      "type": "float"
+    }
   }
-  },
-  "collectionName": "users-permissions_user"
 }
