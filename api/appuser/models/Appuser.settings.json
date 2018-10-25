@@ -1,0 +1,31 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "appuser",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "lat": {
+      "default": "",
+      "type": "float"
+    },
+    "lng": {
+      "default": "",
+      "type": "float"
+    },
+    "organisations": {
+      "collection": "organisation",
+      "via": "appusers",
+      "dominant": true
+    },
+    "tags": {
+      "collection": "tag",
+      "via": "appusers",
+      "dominant": true
+    }
+  }
+}

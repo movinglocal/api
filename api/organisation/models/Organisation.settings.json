@@ -47,6 +47,10 @@
     },
     "lng": {
       "type": "float"
+    },
+    "appusers": {
+      "collection": "appuser",
+      "via": "organisations"
     }
   }
 }
