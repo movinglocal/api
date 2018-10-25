@@ -10,11 +10,9 @@
   },
   "attributes": {
     "lat": {
-      "default": "",
       "type": "float"
     },
     "lng": {
-      "default": "",
       "type": "float"
     },
     "organisations": {
