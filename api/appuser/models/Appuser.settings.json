@@ -9,16 +9,10 @@
     "timestamps": true
   },
   "attributes": {
-    "lat": {
-      "type": "float"
-    },
-    "lng": {
-      "type": "float"
-    },
     "organisations": {
       "collection": "organisation",
-      "via": "appusers",
-      "dominant": true
+      "dominant": true,
+      "via": "appusers"
     },
     "tags": {
       "collection": "tag",
@@ -27,8 +21,18 @@
     },
     "favorites": {
       "collection": "article",
-      "via": "favorites",
-      "dominant": true
+      "dominant": true,
+      "via": "favorites"
+    },
+    "data": {
+      "default": {},
+      "type": "json"
+    },
+    "radius": {
+      "default": 3000,
+      "max": 30000,
+      "min": 3000,
+      "type": "integer"
     }
   }
 }

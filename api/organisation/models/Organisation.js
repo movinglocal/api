@@ -35,8 +35,9 @@ module.exports = {
   beforeCreate: async (model) => {
     if (model.address) {
       const { lat, lng } = await geocode(model.address);
-      model.lat = lat;
-      model.lng = lng;
+      model.geodata = {
+        location: [lng, lat]
+      };
     }
   },
 
@@ -49,8 +50,9 @@ module.exports = {
   beforeUpdate: async (model) => {
     if (model._update.address) {
       const { lat, lng } = await geocode(model._update.address);
-      model._update.lat = lat;
-      model._update.lng = lng;
+      model._update.geodata = {
+        location: [lng, lat]
+      };
     }
   },
 

@@ -81,15 +81,13 @@
     "address": {
       "type": "string"
     },
-    "lat": {
-      "type": "float"
-    },
-    "lng": {
-      "type": "float"
-    },
     "favorites": {
       "collection": "appuser",
       "via": "favorites"
+    },
+    "geodata": {
+      "default": {},
+      "type": "json"
     }
   }
 }

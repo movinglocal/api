@@ -42,15 +42,13 @@
       "plugin": "upload",
       "required": false
     },
-    "lat": {
-      "type": "float"
-    },
-    "lng": {
-      "type": "float"
-    },
     "appusers": {
       "collection": "appuser",
       "via": "organisations"
+    },
+    "geodata": {
+      "default": {},
+      "type": "json"
     }
   }
 }
