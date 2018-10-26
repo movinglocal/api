@@ -49,6 +49,14 @@
     "geodata": {
       "default": {},
       "type": "json"
+    },
+    "category": {
+      "default": "News",
+      "type": "enumeration",
+      "enum": [
+        "News",
+        "Kollektiv"
+      ]
     }
   }
 }

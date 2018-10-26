@@ -37,14 +37,6 @@
       "default": "",
       "type": "string"
     },
-    "category": {
-      "default": "journalismus",
-      "type": "enumeration",
-      "enum": [
-        "journalismus",
-        "kollektive"
-      ]
-    },
     "organisation": {
       "model": "organisation",
       "autoPopulate": true
