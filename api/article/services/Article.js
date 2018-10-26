@@ -22,6 +22,66 @@ function notInFilter(filters) {
 module.exports = {
 
   /**
+   * Promise to fetch an user feed
+   *
+   * @return {Promise}
+   */
+  feed: async (params) => {
+    try {
+      // Convert `params` object to filters compatible with Mongo.
+      const filters = strapi.utils.models.convertParams('article', params);
+
+      // get the user
+      const appuser = await strapi.services.appuser
+        .fetch({_id: params.appuser});
+
+      // get followed tags and organisations
+      const tags = appuser.tags.map(tag => tag._id);
+      const organisations = appuser.organisations.map(organisation => organisation._id);
+      const followedOrganisations = await strapi.services.organisation
+      .fetchAll({_id: {'$in': organisations}});
+
+      // get sources from followed organisations and flatten
+      const sources = followedOrganisations.map(organisation => organisation.sources).reduce((acc, val) => acc.concat(val), []);
+
+      // set filter for tags and sources
+      filters.where = {
+        '$or': [
+          {tags: {'$in': tags}},
+          {source: {'$in': sources}}
+        ]
+      };
+
+
+      // handle location radius
+      filters.geo = {};
+      if (appuser.data.location) {
+        filters.geo = {
+          data: {
+            location: {
+              '$near': appuser.data.location
+            }
+          }
+        };
+      }
+
+      console.log(filters.geo);
+      return Article
+        .find(filters.geo)
+        .populate({
+          path: 'source',
+          populate: {path: 'organisation'}
+        })
+        .where(filters.where)
+        .sort(filters.sort)
+        .skip(filters.start)
+        .limit(filters.limit);
+    } catch (err) {
+      return;
+    }
+  },
+
+  /**
    * Promise to fetch all articles.
    *
    * @return {Promise}

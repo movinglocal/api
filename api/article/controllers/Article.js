@@ -9,6 +9,19 @@
 module.exports = {
 
   /**
+   * Retrieve the article feed for the user
+   *
+   * @return {Array}
+   */
+  feed: async (ctx) => {
+    try {
+      return strapi.services.article.feed(ctx.query);
+    } catch (err) {
+      return ctx.response.notFound();
+    }
+  },
+
+  /**
    * Retrieve article records.
    *
    * @return {Object|Array}
