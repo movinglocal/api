@@ -1,7 +1,7 @@
 'use strict';
 const HTMLParser = require('fast-html-parser');
 const Parser = require('rss-parser');
-const parser = new Parser({customFields: {item: ['summary', 'content']}});
+const parser = new Parser({customFields: {item: ['summary', 'content', 'media:content']}});
 
 /**
  * Source.js service
@@ -203,7 +203,7 @@ module.exports = {
     const all = await strapi.services.source.fetchAll({});
     const sources = all.filter(source => source.type !== 'local');
     for (const source of sources) {
-      const { _id, url, type, filter, category } = source;
+      const { _id, url, type, filter } = source;
       let feed;
       if (type === 'RSS')
         feed = await parser.parseURL(url);
@@ -217,7 +217,12 @@ module.exports = {
 
           const text = html.structuredText;
           const image = html.querySelector('img');
-          const image_url = image && image.attributes.src;
+          let image_url;
+          if (image) {
+            image_url = image.attributes.src;
+          } else if (item['media:content']) {
+            image_url = item['media:content']['$'].url;
+          }
 
           const article = {
             source: _id,
