@@ -88,6 +88,9 @@
     "geodata": {
       "default": {},
       "type": "json"
+    },
+    "event date": {
+      "type": "date"
     }
   }
 }
