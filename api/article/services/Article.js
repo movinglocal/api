@@ -59,13 +59,13 @@ module.exports = {
         filters.geo = {
           data: {
             location: {
-              '$near': appuser.data.location
+              '$near': appuser.data.location, // lng, lat
+              '$maxDistance': appuser.radius
             }
           }
         };
       }
 
-      console.log(filters.geo);
       return Article
         .find(filters.geo)
         .populate({
