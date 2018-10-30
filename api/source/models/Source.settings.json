@@ -39,7 +39,7 @@
     },
     "organisation": {
       "model": "organisation",
-      "autoPopulate": true
+      "via": "sources"
     }
   }
 }

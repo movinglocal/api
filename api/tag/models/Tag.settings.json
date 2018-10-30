@@ -25,7 +25,8 @@
     },
     "appusers": {
       "collection": "appuser",
-      "via": "tags"
+      "via": "tags",
+      "autoPopulate": false
     }
   }
 }

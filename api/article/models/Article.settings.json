@@ -83,7 +83,8 @@
     },
     "favorites": {
       "collection": "appuser",
-      "via": "favorites"
+      "via": "favorites",
+      "autoPopulate": false
     },
     "geodata": {
       "default": {},
