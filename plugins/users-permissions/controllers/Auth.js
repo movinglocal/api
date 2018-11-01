@@ -50,7 +50,7 @@ module.exports = {
       }
 
       // Check if the user exists.
-      const user = await strapi.query('user', 'users-permissions').findOne(query, ['role']);
+      const user = await strapi.query('user', 'users-permissions').findOne(query, ['role', {path: 'organisation', populate: {path: 'sources'}}]);
 
       if (_.get(await store.get({key: 'advanced'}), 'email_confirmation') && user.confirmed !== true) {
         return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.confirmed' }] }] : 'Your account email is not confirmed.');
