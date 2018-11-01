@@ -1,10 +1,8 @@
 module.exports = async (ctx, next) => {
   if (ctx.state.user) {
-    const requestedProfile = ctx.state.i18n.request.url.replace('/user/', '');
-    const userId = ctx.state.user.id.toString();
-    if (requestedProfile === userId) {
-      return await next();
-    }
+    const requestedProfile = ctx.state.request.url.replace('/users/', '');
+    const userId = ctx.state.user.id;
+    if (requestedProfile === userId) return next();
   }
   ctx.unauthorized('Invalid token.');
 };
