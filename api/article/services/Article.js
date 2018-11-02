@@ -39,40 +39,30 @@ module.exports = {
       const tags = appuser.tags.map(tag => tag._id);
       const organisations = appuser.organisations.map(organisation => organisation._id);
       const followedOrganisations = await strapi.services.organisation
-      .fetchAll({_id: {'$in': organisations}});
+        .fetchAll({_id: {'$in': organisations}});
 
       // get sources from followed organisations and flatten
       const sources = followedOrganisations.map(organisation => organisation.sources).reduce((acc, val) => acc.concat(val), []);
 
       // set filter for tags and sources
-      filters.where = {
-        '$or': [
-          {tags: {'$in': tags}},
-          {source: {'$in': sources}}
-        ]
-      };
-
+      const $or = [
+        {tags: {'$in': tags}},
+        {source: {'$in': sources}},
+        {isHot: true}
+      ];
 
       // handle location radius
-      filters.geo = {};
       if (appuser.data.location) {
-        filters.geo = {
-          data: {
-            location: {
-              '$near': appuser.data.location, // lng, lat
-              '$maxDistance': appuser.radius
-            }
-          }
-        };
+        $or.push({'geodata.location': {$geoWithin: {$center: [appuser.data.location, appuser.radius]}}});
       }
 
       return Article
-        .find(filters.geo)
+        .find({isVisible: true})
         .populate({
           path: 'source',
           populate: {path: 'organisation'}
         })
-        .where(filters.where)
+        .where({$or})
         .sort(filters.sort)
         .skip(filters.start)
         .limit(filters.limit);
