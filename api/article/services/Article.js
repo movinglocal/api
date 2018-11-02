@@ -269,8 +269,11 @@ module.exports = {
       }
     }, []);
 
+    delete filters.where._q; // already converted in $or
+
     return Article
       .find({ $or })
+      .where(filters.where)
       .sort(filters.sort)
       .skip(filters.start)
       .limit(filters.limit)
