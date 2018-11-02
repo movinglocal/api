@@ -19,6 +19,8 @@ function notInFilter(filters) {
   return filters;
 }
 
+const getIds = (arr) => arr.map(entry => entry._id);
+
 module.exports = {
 
   /**
@@ -36,18 +38,20 @@ module.exports = {
         .fetch({_id: params.appuser});
 
       // get followed tags and organisations
-      const tags = appuser.tags.map(tag => tag._id);
-      const organisations = appuser.organisations.map(organisation => organisation._id);
+      const tags = getIds(appuser.tags);
+      const organisations = getIds(appuser.organisations);
       const followedOrganisations = await strapi.services.organisation
-        .fetchAll({_id: {'$in': organisations}});
+        .fetchAll({_id: {$in: organisations}});
 
-      // get sources from followed organisations and flatten
-      const sources = followedOrganisations.map(organisation => organisation.sources).reduce((acc, val) => acc.concat(val), []);
+      // get sources from followed organisations
+      const sources = followedOrganisations
+        .map(organisation => organisation.sources)
+        .reduce((acc, val) => acc.concat(val), []); // flatten
 
       // set filter for tags and sources
       const $or = [
-        {tags: {'$in': tags}},
-        {source: {'$in': sources}},
+        {tags: {$in: tags}},
+        {source: {$in: sources}},
         {isHot: true}
       ];
 
