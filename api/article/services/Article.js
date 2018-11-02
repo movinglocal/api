@@ -57,7 +57,9 @@ module.exports = {
 
       // handle location radius
       if (appuser.data.location) {
-        $or.push({'geodata.location': {$geoWithin: {$center: [appuser.data.location, appuser.radius]}}});
+        const geoQuery = {'geodata.location': {$geoWithin: {$center: [appuser.data.location, appuser.radius]}}};
+        $or.push(geoQuery);
+        $or.push({organisation: geoQuery});
       }
 
       return Article
