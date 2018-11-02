@@ -63,7 +63,10 @@ module.exports = {
       }
 
       return Article
-        .find({isVisible: true})
+        .find({
+          isVisible: true,
+          published: true
+        })
         .populate({
           path: 'source',
           populate: {path: 'organisation'}

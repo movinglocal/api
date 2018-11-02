@@ -91,6 +91,10 @@
     },
     "event date": {
       "type": "date"
+    },
+    "published": {
+      "default": false,
+      "type": "boolean"
     }
   }
 }

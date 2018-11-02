@@ -48,6 +48,12 @@ module.exports = {
   // Before updating a value.
   // Fired before an `update` query.
   beforeUpdate: async (model) => {
+    // automatically publish articles from premium organisations
+    if (model._update.source) {
+      const { organisation } = await strapi.services.source.fetch({_id: model._update.source});
+      if (organisation.isPremium) model._update.isVisible = true;
+    }
+
     if (model._update.address) {
       const { lat, lng } = await geocode(model._update.address);
       model._update.geodata = {
