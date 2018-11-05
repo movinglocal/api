@@ -37,7 +37,9 @@
       "path": "/articles",
       "handler": "Article.create",
       "config": {
-        "policies": []
+        "policies": [
+          "isOwnArticle"
+        ]
       }
     },
     {
@@ -45,7 +47,9 @@
       "path": "/articles/:_id",
       "handler": "Article.update",
       "config": {
-        "policies": []
+        "policies": [
+          "isOwnArticle"
+        ]
       }
     },
     {
@@ -53,7 +57,9 @@
       "path": "/articles/:_id",
       "handler": "Article.destroy",
       "config": {
-        "policies": []
+        "policies": [
+          "isOwnArticle"
+        ]
       }
     }
   ]
