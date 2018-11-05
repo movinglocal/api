@@ -11,7 +11,10 @@ module.exports = async (ctx, next) => {
         throw new Error('Invalid token: Token did not contain required fields');
       }
 
-      ctx.state.user = await strapi.query('user', 'users-permissions').findOne({ _id, id });
+      ctx.state.user = await strapi.query('user', 'users-permissions').findOne({ _id, id }, {
+        path: 'organisation',
+        populate: {path: 'sources'}
+      });
     } catch (err) {
       return ctx.unauthorized(err);
     }

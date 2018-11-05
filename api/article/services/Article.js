@@ -19,6 +19,8 @@ function notInFilter(filters) {
   return filters;
 }
 
+const getIds = (arr) => arr.map(entry => entry._id);
+
 module.exports = {
 
   /**
@@ -36,43 +38,40 @@ module.exports = {
         .fetch({_id: params.appuser});
 
       // get followed tags and organisations
-      const tags = appuser.tags.map(tag => tag._id);
-      const organisations = appuser.organisations.map(organisation => organisation._id);
+      const tags = getIds(appuser.tags);
+      const organisations = getIds(appuser.organisations);
       const followedOrganisations = await strapi.services.organisation
-      .fetchAll({_id: {'$in': organisations}});
+        .fetchAll({_id: {$in: organisations}});
 
-      // get sources from followed organisations and flatten
-      const sources = followedOrganisations.map(organisation => organisation.sources).reduce((acc, val) => acc.concat(val), []);
+      // get sources from followed organisations
+      const sources = followedOrganisations
+        .map(organisation => organisation.sources)
+        .reduce((acc, val) => acc.concat(val), []); // flatten
 
       // set filter for tags and sources
-      filters.where = {
-        '$or': [
-          {tags: {'$in': tags}},
-          {source: {'$in': sources}}
-        ]
-      };
-
+      const $or = [
+        {tags: {$in: tags}},
+        {source: {$in: sources}},
+        {isHot: true}
+      ];
 
       // handle location radius
-      filters.geo = {};
       if (appuser.data.location) {
-        filters.geo = {
-          data: {
-            location: {
-              '$near': appuser.data.location
-            }
-          }
-        };
+        const geoQuery = {'geodata.location': {$geoWithin: {$center: [appuser.data.location, appuser.radius]}}};
+        $or.push(geoQuery);
+        $or.push({organisation: geoQuery});
       }
 
-      console.log(filters.geo);
       return Article
-        .find(filters.geo)
+        .find({
+          isVisible: true,
+          published: true
+        })
         .populate({
           path: 'source',
           populate: {path: 'organisation'}
         })
-        .where(filters.where)
+        .where({$or})
         .sort(filters.sort)
         .skip(filters.start)
         .limit(filters.limit);
@@ -269,8 +268,11 @@ module.exports = {
       }
     }, []);
 
+    delete filters.where._q; // already converted in $or
+
     return Article
       .find({ $or })
+      .where(filters.where)
       .sort(filters.sort)
       .skip(filters.start)
       .limit(filters.limit)

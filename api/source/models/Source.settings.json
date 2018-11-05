@@ -38,8 +38,7 @@
       "type": "string"
     },
     "organisation": {
-      "model": "organisation",
-      "autoPopulate": true
+      "model": "organisation"
     }
   }
 }

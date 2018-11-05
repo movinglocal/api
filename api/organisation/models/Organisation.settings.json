@@ -44,7 +44,8 @@
     },
     "appusers": {
       "collection": "appuser",
-      "via": "organisations"
+      "via": "organisations",
+      "autoPopulate": false
     },
     "geodata": {
       "default": {},

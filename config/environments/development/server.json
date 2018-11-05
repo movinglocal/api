@@ -1,6 +1,9 @@
 {
   "host": "localhost",
   "port": 1337,
+  "admin": {
+    "autoOpen": false
+  },
   "autoReload": {
     "enabled": true
   },

@@ -1,9 +1,7 @@
 'use strict';
 
-const geocode = require('../../../utils/geocode');
-
 /**
- * Lifecycle callbacks for the `Article` model.
+ * Lifecycle callbacks for the `Feedback` model.
  */
 
 module.exports = {
@@ -32,14 +30,7 @@ module.exports = {
 
   // Before creating a value.
   // Fired before an `insert` query.
-  beforeCreate: async (model) => {
-    if (model.address) {
-      const { lat, lng } = await geocode(model.address);
-      model.geodata = {
-        location: [lng, lat]
-      };
-    }
-  },
+  // beforeCreate: async (model) => {},
 
   // After creating a value.
   // Fired after an `insert` query.
@@ -47,20 +38,7 @@ module.exports = {
 
   // Before updating a value.
   // Fired before an `update` query.
-  beforeUpdate: async (model) => {
-    // automatically publish articles from premium organisations
-    if (model._update.source) {
-      const { organisation } = await strapi.services.source.fetch({_id: model._update.source});
-      if (organisation.isPremium) model._update.isVisible = true;
-    }
-
-    if (model._update.address) {
-      const { lat, lng } = await geocode(model._update.address);
-      model._update.geodata = {
-        location: [lng, lat]
-      };
-    }
-  },
+  // beforeUpdate: async (model) => {},
 
   // After updating a value.
   // Fired after an `update` query.

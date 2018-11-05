@@ -1,10 +1,7 @@
 'use strict';
-const HTMLParser = require('fast-html-parser');
-const Parser = require('rss-parser');
-const parser = new Parser({customFields: {item: ['summary', 'content', 'media:content']}});
 
 /**
- * Source.js service
+ * Feedback.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -15,21 +12,21 @@ const _ = require('lodash');
 module.exports = {
 
   /**
-   * Promise to fetch all sources.
+   * Promise to fetch all feedbacks.
    *
    * @return {Promise}
    */
 
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('source', params);
+    const filters = strapi.utils.models.convertParams('feedback', params);
     // Select field to populate.
-    const populate = Source.associations
+    const populate = Feedback.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Source
+    return Feedback
       .find()
       .where(filters.where)
       .sort(filters.sort)
@@ -39,90 +36,90 @@ module.exports = {
   },
 
   /**
-   * Promise to fetch a/an source.
+   * Promise to fetch a/an feedback.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Source.associations
+    const populate = Feedback.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Source
-      .findOne(_.pick(params, _.keys(Source.schema.paths)))
+    return Feedback
+      .findOne(_.pick(params, _.keys(Feedback.schema.paths)))
       .populate(populate);
   },
 
   /**
-   * Promise to count sources.
+   * Promise to count feedbacks.
    *
    * @return {Promise}
    */
 
   count: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('source', params);
+    const filters = strapi.utils.models.convertParams('feedback', params);
 
-    return Source
+    return Feedback
       .count()
       .where(filters.where);
   },
 
   /**
-   * Promise to add a/an source.
+   * Promise to add a/an feedback.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Source.associations.map(ast => ast.alias));
-    const data = _.omit(values, Source.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Feedback.associations.map(ast => ast.alias));
+    const data = _.omit(values, Feedback.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Source.create(data);
+    const entry = await Feedback.create(data);
 
     // Create relational data and return the entry.
-    return Source.updateRelations({ _id: entry.id, values: relations });
+    return Feedback.updateRelations({ _id: entry.id, values: relations });
   },
 
   /**
-   * Promise to edit a/an source.
+   * Promise to edit a/an feedback.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Source.associations.map(a => a.alias));
-    const data = _.omit(values, Source.associations.map(a => a.alias));
+    const relations = _.pick(values, Feedback.associations.map(a => a.alias));
+    const data = _.omit(values, Feedback.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Source.update(params, data, { multi: true });
+    const entry = await Feedback.update(params, data, { multi: true });
 
     // Update relational data and return the entry.
-    return Source.updateRelations(Object.assign(params, { values: relations }));
+    return Feedback.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an source.
+   * Promise to remove a/an feedback.
    *
    * @return {Promise}
    */
 
   remove: async params => {
     // Select field to populate.
-    const populate = Source.associations
+    const populate = Feedback.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Source
+    const data = await Feedback
       .findOneAndRemove(params, {})
       .populate(populate);
 
@@ -131,7 +128,7 @@ module.exports = {
     }
 
     await Promise.all(
-      Source.associations.map(async association => {
+      Feedback.associations.map(async association => {
         const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
         const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 
@@ -148,22 +145,22 @@ module.exports = {
   },
 
   /**
-   * Promise to search a/an source.
+   * Promise to search a/an feedback.
    *
    * @return {Promise}
    */
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('source', params);
+    const filters = strapi.utils.models.convertParams('feedback', params);
     // Select field to populate.
-    const populate = Source.associations
+    const populate = Feedback.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    const $or = Object.keys(Source.attributes).reduce((acc, curr) => {
-      switch (Source.attributes[curr].type) {
+    const $or = Object.keys(Feedback.attributes).reduce((acc, curr) => {
+      switch (Feedback.attributes[curr].type) {
         case 'integer':
         case 'float':
         case 'decimal':
@@ -187,77 +184,11 @@ module.exports = {
       }
     }, []);
 
-    return Source
+    return Feedback
       .find({ $or })
       .sort(filters.sort)
       .skip(filters.start)
       .limit(filters.limit)
       .populate(populate);
-  },
-
-  /**
-   * Fetch data from this datasource
-   *
-   */
-  getData: async () => {
-    const all = await strapi.services.source.fetchAll({});
-    const sources = all.filter(source => source.type !== 'local');
-    for (const source of sources) {
-      const { _id, url, type, filter } = source;
-      let feed;
-      if (type === 'RSS')
-        feed = await parser.parseURL(url);
-
-      for (const item of feed.items) {
-        const { content, summary, title, pubDate, link, guid } = item;
-        const count = await strapi.services.article.count({guid});
-        if (count === 0) {
-          const body = `<html>${content || summary}</html>`;
-          const html = HTMLParser.parse(body);
-
-          const text = html.structuredText;
-          const image = html.querySelector('img');
-          let image_url;
-          if (image) {
-            image_url = image.attributes.src;
-          } else if (item['media:content']) {
-            image_url = item['media:content']['$'].url;
-          }
-
-          const article = {
-            source: _id,
-            date: pubDate,
-            title,
-            teaser: text,
-            image_url,
-            link,
-            guid
-          };
-
-          try {
-            if (filter) {
-              const filterTerm = filter.toLowerCase();
-              if (article.title.toLowerCase().includes(filterTerm) || article.teaser.toLowerCase().includes(filterTerm)) {
-                addArticle(article);
-              }
-            } else {
-              addArticle(article);
-            }
-          } catch (err) {
-            if (err.code === 11000) await strapi.services.article.edit({link}, article);
-          }
-        }
-      }
-
-    }
   }
 };
-
-const addArticle = async (article) => {
-  try {
-    await strapi.services.article.add(article);
-  } catch (err) {
-    console.log(err);
-  }
-
-}

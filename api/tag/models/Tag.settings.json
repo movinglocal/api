@@ -17,7 +17,8 @@
     },
     "articles": {
       "collection": "article",
-      "via": "tags"
+      "via": "tags",
+      "autoPopulate": false
     },
     "topics": {
       "collection": "topic",
@@ -25,7 +26,8 @@
     },
     "appusers": {
       "collection": "appuser",
-      "via": "tags"
+      "via": "tags",
+      "autoPopulate": false
     }
   }
 }

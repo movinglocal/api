@@ -35,8 +35,7 @@
       "type": "string"
     },
     "source": {
-      "model": "source",
-      "via": "articles"
+      "model": "source"
     },
     "tags": {
       "collection": "tag",
@@ -83,11 +82,19 @@
     },
     "favorites": {
       "collection": "appuser",
-      "via": "favorites"
+      "via": "favorites",
+      "autoPopulate": false
     },
     "geodata": {
       "default": {},
       "type": "json"
+    },
+    "event date": {
+      "type": "date"
+    },
+    "published": {
+      "default": false,
+      "type": "boolean"
     }
   }
 }
