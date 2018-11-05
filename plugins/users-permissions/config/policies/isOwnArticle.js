@@ -13,7 +13,6 @@ module.exports = async (ctx, next) => {
 
       const sourceId = article.source.id || article.source;
       if (organisation.sources.find(source => source.id.toString() === sourceId)) {
-        console.log('ALLOWED!!!');
         return await next();
       }
     }
