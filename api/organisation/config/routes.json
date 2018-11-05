@@ -37,9 +37,7 @@
       "path": "/organisations/:_id",
       "handler": "Organisation.update",
       "config": {
-        "policies": [
-          "isOwnOrganisation"
-        ]
+        "policies": []
       }
     },
     {
