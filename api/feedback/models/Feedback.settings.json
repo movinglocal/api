@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "feedback",
   "info": {
     "name": "feedback",
     "description": "Users' feedbacks"
@@ -18,6 +18,10 @@
       "default": "",
       "type": "text",
       "required": true
+    },
+    "isAnswered": {
+      "default": false,
+      "type": "boolean"
     }
   }
 }
