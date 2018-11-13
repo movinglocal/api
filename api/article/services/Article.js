@@ -21,6 +21,32 @@ function notInFilter(filters) {
 
 const getIds = (arr) => arr.map(entry => entry._id);
 
+const searchQuery = (params) => params._q &&
+  Object.keys(Article.attributes).reduce((acc, curr) => {
+    switch (Article.attributes[curr].type) {
+      case 'integer':
+      case 'float':
+      case 'decimal':
+        if (!_.isNaN(_.toNumber(params._q))) {
+          return acc.concat({ [curr]: params._q });
+        }
+
+        return acc;
+      case 'string':
+      case 'text':
+      case 'password':
+        return acc.concat({ [curr]: { $regex: params._q, $options: 'i' } });
+      case 'boolean':
+        if (params._q === 'true' || params._q === 'false') {
+          return acc.concat({ [curr]: params._q === 'true' });
+        }
+
+        return acc;
+      default:
+        return acc;
+    }
+  }, []);
+
 module.exports = {
 
   /**
@@ -62,10 +88,13 @@ module.exports = {
         $or.push({organisation: geoQuery});
       }
 
+      // handle search
+      Object.assign($or, searchQuery(params));
+
       return Article
         .find({
           isVisible: true,
-          published: true
+          published: true,
         })
         .populate({
           path: 'source',
@@ -243,30 +272,7 @@ module.exports = {
       .map(ast => ast.alias)
       .join(' ');
 
-    const $or = Object.keys(Article.attributes).reduce((acc, curr) => {
-      switch (Article.attributes[curr].type) {
-        case 'integer':
-        case 'float':
-        case 'decimal':
-          if (!_.isNaN(_.toNumber(params._q))) {
-            return acc.concat({ [curr]: params._q });
-          }
-
-          return acc;
-        case 'string':
-        case 'text':
-        case 'password':
-          return acc.concat({ [curr]: { $regex: params._q, $options: 'i' } });
-        case 'boolean':
-          if (params._q === 'true' || params._q === 'false') {
-            return acc.concat({ [curr]: params._q === 'true' });
-          }
-
-          return acc;
-        default:
-          return acc;
-      }
-    }, []);
+    const $or = searchQuery(params);
 
     delete filters.where._q; // already converted in $or
 
