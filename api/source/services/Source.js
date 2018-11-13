@@ -231,7 +231,9 @@ module.exports = {
             teaser: text,
             image_url,
             link,
-            guid
+            guid,
+            published: true,
+            isVisible: true // simulate publishing activity on staging
           };
 
           try {
