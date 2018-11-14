@@ -105,6 +105,9 @@ module.exports = {
           path: 'source',
           populate: {path: 'organisation'}
         })
+        .populate({
+          path: 'image'
+        })
         .where({$or})
         .sort(filters.sort)
         .skip(filters.start)
