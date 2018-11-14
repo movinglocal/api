@@ -232,8 +232,7 @@ module.exports = {
             image_url,
             link,
             guid,
-            published: true,
-            isVisible: true // simulate publishing activity on staging
+            published: true
           };
 
           try {
