@@ -11,7 +11,10 @@ module.exports = async (ctx, next) => {
         throw new Error('Invalid token: Token did not contain required fields');
       }
 
-      ctx.state.user = await strapi.query('user', 'users-permissions').findOne({ _id, id });
+      ctx.state.user = await strapi.query('user', 'users-permissions').findOne({ _id, id }, {
+        path: 'organisation',
+        populate: {path: 'sources'}
+      });
     } catch (err) {
       return handleErrors(ctx, err, 'unauthorized');
     }
@@ -35,7 +38,7 @@ module.exports = async (ctx, next) => {
     if (_.get(await store.get({key: 'advanced'}), 'email_confirmation') && ctx.state.user.confirmed !== true) {
       return handleErrors(ctx, 'Your account email is not confirmed.', 'unauthorized');
     }
-    
+
     if (ctx.state.user.blocked === true) {
       return handleErrors(ctx, 'Your account has been blocked by the administrator.', 'unauthorized');
     }
