@@ -106,12 +106,11 @@ module.exports = {
 
     const request = await this.create(values)
       .catch((err) => {
-        if (err.message) {
-          const message = err.message.split('index:');
-          const field = _.words(_.last(message).split('_')[0]);
-          err = { message: `This ${field} is already taken`, field };
-        }
-        throw err;
+        const message = err.message.split('index:');
+        const field = _.words(_.last(message).split('_')[0]);
+        const error = { message: `This ${field} is already taken`, field };
+
+        throw error;
       });
 
     // Transform to JSON object.

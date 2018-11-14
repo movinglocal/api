@@ -936,7 +936,7 @@ module.exports = {
 
     if (connector && !installedConnector) {
       strapi.log.info(`Installing ${connector} dependency ...`);
-      exec('npm', ['install', `${connector}@${strapi.config.info.strapi}`]);
+      exec('npm', ['install', `${connector}@alpha`]);
     }
 
     if (client && !installedClient) {

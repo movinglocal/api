@@ -13,11 +13,11 @@ module.exports = async (ctx, next) => {
 
       ctx.state.user = await strapi.query('user', 'users-permissions').findOne({ _id, id });
     } catch (err) {
-      return handleErrors(ctx, err, 'unauthorized');
+      return ctx.unauthorized(err);
     }
 
     if (!ctx.state.user) {
-      return handleErrors(ctx, 'User Not Found', 'unauthorized');
+      return ctx.unauthorized(`User Not Found.`);
     }
 
     role = ctx.state.user.role;
@@ -33,14 +33,13 @@ module.exports = async (ctx, next) => {
     });
 
     if (_.get(await store.get({key: 'advanced'}), 'email_confirmation') && ctx.state.user.confirmed !== true) {
-      return handleErrors(ctx, 'Your account email is not confirmed.', 'unauthorized');
+      return ctx.unauthorized('Your account email is not confirmed.');
     }
     
     if (ctx.state.user.blocked === true) {
-      return handleErrors(ctx, 'Your account has been blocked by the administrator.', 'unauthorized');
+      return ctx.unauthorized(`Your account has been blocked by the administrator.`);
     }
   }
-
   // Retrieve `public` role.
   if (!role) {
     role = await strapi.query('role', 'users-permissions').findOne({ type: 'public' }, []);
@@ -56,7 +55,11 @@ module.exports = async (ctx, next) => {
   }, []);
 
   if (!permission) {
-    return handleErrors(ctx, undefined, 'forbidden');
+    if (ctx.request.graphql === null) {
+      return ctx.request.graphql = strapi.errors.forbidden();
+    }
+
+    return ctx.forbidden();
   }
 
   // Execute the policies.
@@ -66,12 +69,4 @@ module.exports = async (ctx, next) => {
 
   // Execute the action.
   await next();
-};
-
-const handleErrors = (ctx, err = undefined, type) => {
-  if (ctx.request.graphql === null) {
-    return ctx.request.graphql = strapi.errors[type](err);
-  }
-
-  return ctx[type](err);
 };

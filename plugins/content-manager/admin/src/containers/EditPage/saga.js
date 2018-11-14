@@ -1,7 +1,6 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { findIndex, get, isArray, isEmpty, includes, isNumber, isString, map } from 'lodash';
 import {
-  all,
   call,
   cancel,
   fork,
@@ -35,9 +34,9 @@ function* dataGet(action) {
   try {
     const modelName = yield select(makeSelectModelName());
     const params = { source: action.source };
-    const [response] = yield all([
+    const [response] = yield [
       call(request, `/content-manager/explorer/${modelName}/${action.id}`, { method: 'GET', params }),
-    ]);
+    ];
     const pluginHeaderTitle = yield call(templateObject, { mainField: action.mainField }, response);
 
     yield put(getDataSucceeded(action.id, response, pluginHeaderTitle.mainField));
@@ -75,7 +74,6 @@ export function* submit() {
   const source = yield select(makeSelectSource());
   const schema = yield select(makeSelectSchema());
   let shouldAddTranslationSuffix = false;
-  
   // Remove the updated_at & created_at fields so it is updated correctly when using Postgres or MySQL db
   if (record.updated_at) {
     delete record.created_at;
