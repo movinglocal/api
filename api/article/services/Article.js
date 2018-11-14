@@ -91,10 +91,15 @@ module.exports = {
       // handle search
       Object.assign($or, searchQuery(params));
 
+      // last 48h
+      const now = new Date();
+      now.setHours(now.getHours() - 48);
+
       return Article
         .find({
           isVisible: true,
           published: true,
+          date: {$gte: now}
         })
         .populate({
           path: 'source',
