@@ -50,7 +50,14 @@ module.exports = {
 
     return Appuser
       .findOne(_.pick(params, _.keys(Appuser.schema.paths)))
-      .populate(populate);
+      .populate(populate)
+      .populate({
+        path: 'favorites',
+        populate: {
+          path: 'image'
+        }
+      });
+
   },
 
   /**
