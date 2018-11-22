@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "topic",
   "info": {
     "name": "topic",
     "description": "A topic includes multiple tags"
@@ -19,6 +19,11 @@
       "collection": "tag",
       "via": "topics",
       "dominant": true
+    },
+    "rank": {
+      "default": "",
+      "unique": true,
+      "type": "integer"
     }
   }
 }
