@@ -29,9 +29,9 @@
       "type": "json"
     },
     "radius": {
-      "default": 3000,
+      "default": 1000,
       "max": 30000,
-      "min": 3000,
+      "min": 1000,
       "type": "integer"
     }
   }
