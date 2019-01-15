@@ -63,6 +63,7 @@ module.exports = {
    */
 
   update: async (ctx, next) => {
+    if (ctx.params._id === 'null') return ctx.response.badRequest('_id is null');
     return strapi.services.appuser.edit(ctx.params, ctx.request.body) ;
   },
 
